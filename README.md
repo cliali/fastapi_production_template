@@ -32,12 +32,12 @@ apt install just
 
 Others: [link](https://github.com/casey/just?tab=readme-ov-file#packages)
 
-### Setup poetry
+### Setup UV
 ```shell
-pip install poetry
+pip install uv
 ```
 
-Other ways: [link](https://python-poetry.org/docs/#installation)
+Other ways: [link](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### Setup Postgres (16.3)
 ```shell
@@ -45,7 +45,9 @@ just up
 ```
 ### Copy the environment file and install dependencies
 1. `cp .env.example .env`
-2. `poetry install`
+2. `uv venv`
+3. `source .venv/bin/activate`
+4. `uv pip install -r pyproject.toml`
 
 ### Run the uvicorn server
 With default settings:

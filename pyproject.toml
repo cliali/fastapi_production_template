@@ -17,6 +17,7 @@ dependencies = [
     "sentry-sdk>=2.13.0",
     "python-json-logger>=2.0.7",
     "uvicorn>=0.30.6",
+    "sqlmodel>=0.0.21",
 ]
 
 [build-system]

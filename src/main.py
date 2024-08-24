@@ -2,15 +2,19 @@ from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 import sentry_sdk
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from sqlmodel import select
+from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.middleware.cors import CORSMiddleware
 
 from src.config import app_configs, settings
+from src.database import get_session, init_db
 
 
 @asynccontextmanager
 async def lifespan(_application: FastAPI) -> AsyncGenerator:
     # Startup
+    await init_db()
     yield
     # Shutdown
 

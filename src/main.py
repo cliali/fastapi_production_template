@@ -3,8 +3,8 @@ from typing import AsyncGenerator
 
 import sentry_sdk
 from fastapi import Depends, FastAPI
-from sqlmodel import select
-from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.middleware.cors import CORSMiddleware
 
 from src.config import app_configs, settings

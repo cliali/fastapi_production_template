@@ -37,7 +37,7 @@ class Config(CustomBaseSettings):
         return self
 
 
-settings = Config()
+settings = Config() # type: ignore
 
 app_configs: dict[str, Any] = {"title": "App API"}
 if settings.ENVIRONMENT.is_deployed:

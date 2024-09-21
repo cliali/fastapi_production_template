@@ -1,13 +1,13 @@
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import SQLModel
-from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlalchemy import MetaData
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
 
 from src.config import settings
+from src.constants import DB_NAMING_CONVENTION
 
 DATABASE_URL = str(settings.DATABASE_ASYNC_URL)
 
-async_engine = create_async_engine(
+engine = create_async_engine(
     DATABASE_URL,
     echo=True,
     pool_size=settings.DATABASE_POOL_SIZE,
@@ -16,14 +16,18 @@ async_engine = create_async_engine(
 )
 
 
+class Base(DeclarativeBase):
+    metadata = MetaData(naming_convention=DB_NAMING_CONVENTION)
+
+
 async def init_db():
-    async with async_engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
 
 async def get_session() -> AsyncSession:  # type: ignore
-    async_session = sessionmaker(
-        bind=async_engine,  # type: ignore
+    async_session = async_sessionmaker(
+        engine,
         class_=AsyncSession,
         expire_on_commit=False,
     )  # type: ignore

@@ -76,7 +76,7 @@ just migrate
 ```
 - Downgrade migrations
 ```shell
-just downgrade downgrade -1  # or -2 or base or hash of the migration
+just downgrade -1  # or -2 or base or hash of the migration
 ```
 
 ## Deployment
